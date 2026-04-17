@@ -1,1 +1,1 @@
-start /b pythonw sync.py
+start /b pythonw D:\files\using\Python\P_PC_Sync_To_Another_Local_Path\sync.py
