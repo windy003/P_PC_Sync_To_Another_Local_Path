@@ -185,19 +185,25 @@ class SyncHandler(FileSystemEventHandler):
         rel = os.path.relpath(src_path, self.src)
         return os.path.join(self.dst, rel)
 
-    def _should_skip(self, path: str) -> bool:
+    def _should_skip(self, path: str, is_directory: bool = False) -> bool:
         """判断是否应该跳过此路径（匹配忽略规则或超出深度）。"""
         if should_ignore(path, self.patterns):
             return True
-        if exceeds_depth(path, self.src, self.depth):
-            return True
+        if self.depth > 0:
+            depth = get_depth(path, self.src)
+            # 目录：depth >= max_depth 时跳过（与 full_sync 一致）
+            # 文件：depth > max_depth 时跳过（文件比所在目录深一级）
+            if is_directory and depth >= self.depth:
+                return True
+            if not is_directory and depth > self.depth:
+                return True
         return False
 
     # --- 事件回调 ---
 
     def on_created(self, event):
         """文件或目录被创建时触发。"""
-        if self._should_skip(event.src_path):
+        if self._should_skip(event.src_path, event.is_directory):
             return
         dst = self._dst_path(event.src_path)
         try:
@@ -213,7 +219,7 @@ class SyncHandler(FileSystemEventHandler):
 
     def on_modified(self, event):
         """文件被修改时触发。"""
-        if event.is_directory or self._should_skip(event.src_path):
+        if event.is_directory or self._should_skip(event.src_path, False):
             return
         dst = self._dst_path(event.src_path)
         try:
@@ -225,7 +231,7 @@ class SyncHandler(FileSystemEventHandler):
 
     def on_deleted(self, event):
         """文件或目录被删除时触发。"""
-        if self._should_skip(event.src_path):
+        if self._should_skip(event.src_path, event.is_directory):
             return
         dst = self._dst_path(event.src_path)
         try:
@@ -241,7 +247,7 @@ class SyncHandler(FileSystemEventHandler):
 
     def on_moved(self, event):
         """文件或目录被移动/重命名时触发。"""
-        if self._should_skip(event.src_path) and self._should_skip(event.dest_path):
+        if self._should_skip(event.src_path, event.is_directory) and self._should_skip(event.dest_path, event.is_directory):
             return
         src_dst = self._dst_path(event.src_path)
         dest_dst = self._dst_path(event.dest_path)
