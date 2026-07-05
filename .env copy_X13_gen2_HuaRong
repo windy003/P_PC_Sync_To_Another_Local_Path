@@ -13,10 +13,10 @@
 # ===========================================================
 
 
-SYNC_PAIR_1_SOURCE="D:\files\using\Web\jdbendi.com\flask\.env"
-SYNC_PAIR_1_DEST="D:\files\myNetdisk\backup\jdbendi.com"
-SYNC_PAIR_1_DEPTH=1
-SYNC_PAIR_1_IGNORE
+# SYNC_PAIR_1_SOURCE="D:\files\using\Web\jdbendi.com\flask\.env"
+# SYNC_PAIR_1_DEST="D:\files\myNetdisk\backup\jdbendi.com"
+# SYNC_PAIR_1_DEPTH=1
+# SYNC_PAIR_1_IGNORE
 
 SYNC_PAIR_2_SOURCE="C:\Users\92892\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 SYNC_PAIR_2_DEST="D:\files\myNetdisk\backup\Startup"
@@ -28,10 +28,10 @@ SYNC_PAIR_3_DEST="D:\files\myNetdisk\backup\StartupMenu"
 SYNC_PAIR_3_DEPTH=1
 SYNC_PAIR_3_IGNORE=
 
-SYNC_PAIR_4_SOURCE="D:\files\using\Web\jdbendi.com\flask\posts.db"
-SYNC_PAIR_4_DEST="D:\files\myNetdisk\backup\jdbendi.com"
-SYNC_PAIR_4_DEPTH=1
-SYNC_PAIR_4_IGNORE=
+# SYNC_PAIR_4_SOURCE="D:\files\using\Web\jdbendi.com\flask\posts.db"
+# SYNC_PAIR_4_DEST="D:\files\myNetdisk\backup\jdbendi.com"
+# SYNC_PAIR_4_DEPTH=1
+# SYNC_PAIR_4_IGNORE=
 
 
 # SYNC_PAIR_3_SOURCE=D:/example/deep
