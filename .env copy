@@ -1,0 +1,60 @@
+# 文件同步配置
+# ============================================================
+# 每个同步对包含: SOURCE(源路径), DEST(目标目录), MODE(方式,可选),
+#                 DELAY_SECONDS(延迟秒数,可选), DEPTH(深度,可选), IGNORE(忽略规则,可选)
+#
+# MODE: 同步方式
+#   copy = 复制（默认）。源文件保留；源端删除/改名会镜像到目标端
+#   move = 移动。文件搬到目标后源文件被删除；目标端只进不出，不会被清理
+#
+# DELAY_SECONDS: 检测到变化后，延迟多少秒再上传
+#   0     = 立即上传（默认）
+#   10    = 变化发生 10 秒后上传；这 10 秒内同一文件的多次改动合并成一次上传
+#   60*3  = 支持简单算式（+ - * / 和括号），这里表示 3 分钟
+#   （只影响运行中的实时同步；程序启动时的首次全量同步不受影响）
+#
+# DEPTH: 控制目录同步深度
+#   0 = 无限制，同步所有子目录（默认值）
+#   1 = 仅同步源目录下的文件，不包括子目录
+#   2 = 同步源目录 + 一层子目录
+#   N = 同步源目录 + (N-1) 层子目录
+#
+# IGNORE: 每对独立的忽略规则（逗号分隔，支持通配符）
+#   会与全局 SYNC_IGNORE 合并生效
+# ===========================================================
+
+
+SYNC_PAIR_1_SOURCE="C:\Users\92892\Pictures\ToDo"
+SYNC_PAIR_1_DEST="\\192.168.2.56\Todo"
+SYNC_PAIR_1_MODE=move
+SYNC_PAIR_1_DELAY_SECONDS=60
+SYNC_PAIR_1_DEPTH=1
+SYNC_PAIR_1_IGNORE=
+
+
+SYNC_PAIR_2_SOURCE="C:\Users\92892\Pictures\Large_Screenshots"
+SYNC_PAIR_2_DEST="\\192.168.2.56\Large_Screenshots"
+SYNC_PAIR_2_MODE=move
+SYNC_PAIR_2_DELAY_SECONDS=60*3
+SYNC_PAIR_2_DEPTH=1
+SYNC_PAIR_2_IGNORE=
+
+
+# SYNC_PAIR_3_SOURCE=D:/example/deep
+# SYNC_PAIR_3_DEST=E:/backup/deep
+# SYNC_PAIR_3_MODE=move
+# SYNC_PAIR_3_DELAY_SECONDS=30
+# SYNC_PAIR_3_DEPTH=3
+# SYNC_PAIR_3_IGNORE=node_modules,*.zip
+
+# 全局默认同步方式（未单独指定 MODE 的同步对使用它），默认 copy
+# SYNC_MODE=copy
+
+# 全局默认延迟秒数（未单独指定 DELAY_SECONDS 的同步对使用它），默认 0
+# SYNC_DELAY_SECONDS=0
+
+# 全局忽略规则（应用于所有同步对）
+# SYNC_IGNORE=*.tmp,*.log,.git,__pycache__,.DS_Store,Thumbs.db
+
+# 日志级别: DEBUG, INFO, WARNING, ERROR
+SYNC_LOG_LEVEL=INFO
